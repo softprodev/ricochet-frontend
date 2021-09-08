@@ -38,7 +38,6 @@ export const FlowForm: React.FC<Props> = ({
         error={!!error}
       />
       <Button
-        disabled
         label="Start/Edit"
         onClick={onStart}
         className={styles.button}
