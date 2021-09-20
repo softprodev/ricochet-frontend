@@ -12,11 +12,11 @@ export const ModalNetwork:React.FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <p className={styles.title}>You should switch to Polygon network</p>
+      <p className={styles.title}>You should switch to Matic network</p>
       <ul className={styles.params}>
         <li>
           <span className={styles.label}>name - </span>
-          Polygon
+          Matic
         </li>
         <li>
           <span className={styles.label}>chainId - </span>
@@ -24,7 +24,7 @@ export const ModalNetwork:React.FC = () => {
         </li>
         <li>
           <span className={styles.label}>RPC URL - </span>
-          https://polygon-rpc.com
+          https://rpc-mainnet.matic.network
 
         </li>
         <li>
@@ -34,7 +34,7 @@ export const ModalNetwork:React.FC = () => {
       </ul>
       <Button 
         onClick={handleClick}
-        label="SWITCH TO POLYGON"
+        label="SWITCH TO MATIC"
         className={styles.button}
       />
     </div>
