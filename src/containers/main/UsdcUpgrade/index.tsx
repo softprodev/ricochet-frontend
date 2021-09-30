@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, ChangeEvent } from 'react';
 import { Card } from 'components/layout/Card';
 import { UpgradeForm } from 'components/main/UpgradeForm';
 import { useDispatch } from 'react-redux';
 import { usdcApprove, usdcUpgrade } from 'store/main/actionCreators';
 import { BalanceText } from 'components/common/BalanceText';
 import { useToasts } from 'hooks/useToast';
-import { trimPad } from 'utils/balances';
 
 type Props = {
   balance?: string;
@@ -30,11 +29,11 @@ export const UsdcUpgrade: React.FC<Props> = ({
     }
   }, [setUsdc]);
 
-  const handleAmount = (amount: string) => {
-    if (error) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (error) { 
       setError('');
     }
-    setUsdc(amount);
+    setUsdc(e.target.value);
   };
 
   const handleonApprove = useCallback(() => {
@@ -59,15 +58,14 @@ export const UsdcUpgrade: React.FC<Props> = ({
       <>
         <UpgradeForm
           value={usdc}
-          onAmount={handleAmount}
+          onChange={handleChange}
           onApprove={handleonApprove}
           onUpgrade={handleonUpgrade}
           disabledApprove={hasUsdcApprove}
           disabledUpgrade={!hasUsdcApprove}
           error={error}
-          balance={balance}
         />
-        <BalanceText text={`Your USDC Balance: ${trimPad(balance, 6)}`} />
+        <BalanceText text={`Your USDC Balance: ${balance}`} />
       </>
     </Card>
   );

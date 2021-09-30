@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, ChangeEvent } from 'react';
 import { Card } from 'components/layout/Card';
 import { UpgradeForm } from 'components/main/UpgradeForm';
 import { useDispatch } from 'react-redux';
 import { daiApprove, daiUpgrade } from 'store/main/actionCreators';
 import { BalanceText } from 'components/common/BalanceText';
 import { useToasts } from 'hooks/useToast';
-import { trimPad } from 'utils/balances';
 
 type Props = {
   balance?: string;
@@ -30,11 +29,11 @@ export const DaiUpgrade: React.FC<Props> = ({
     }
   }, [setDai]);
 
-  const handleAmount = (amount: string) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (error) {
       setError('');
     }
-    setDai(amount);
+    setDai(e.target.value);
   };
 
   const handleonApprove = useCallback(() => {
@@ -59,15 +58,14 @@ export const DaiUpgrade: React.FC<Props> = ({
       <>
         <UpgradeForm
           value={dai}
-          onAmount={handleAmount}
+          onChange={handleChange}
           onApprove={handleonApprove}
           onUpgrade={handleonUpgrade}
           disabledApprove={hasDaiApprove}
           disabledUpgrade={!hasDaiApprove}
           error={error}
-          balance={balance}
         />
-        <BalanceText text={`Your DAI Balance: ${trimPad(balance, 6)}`} />
+        <BalanceText text={`Your DAI Balance: ${balance}`} />
       </>
     </Card>
   );

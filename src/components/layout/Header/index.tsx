@@ -1,5 +1,4 @@
 import React from 'react';
-import { trimPad } from 'utils/balances';
 import logo from 'assets/images/logo.png';
 import styles from './styles.module.scss';
 
@@ -47,7 +46,7 @@ export const Header:React.FC<Props> = ({ account, ricBalance = '' }) => (
         </a>
       </div>
       <div className={styles.ric}>
-        {`${trimPad(ricBalance, 6)} RIC`}
+        {`${ricBalance} RIC`}
       </div>
     </div>
   </header>

@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, ChangeEvent, useCallback } from 'react';
 import { DowngradeForm } from 'components/main/DowngradeForm';
 import { Card } from 'components/layout/Card';
 import { useDispatch } from 'react-redux';
 import { daiDownGrade } from 'store/main/actionCreators';
 import { BalanceText } from 'components/common/BalanceText';
 import { useToasts } from 'hooks/useToast';
-import { trimPad } from 'utils/balances';
 
 type Props = {
   balance?: string;
@@ -28,11 +27,11 @@ export const DaiDowngrade: React.FC<Props> = ({
     }
   }, [setDai]);
 
-  const handleAmount = (amount: string) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (error) {
       setError('');
     }
-    setDai(amount);
+    setDai(e.target.value);
   };
 
   const handleClick = useCallback(() => {
@@ -50,12 +49,11 @@ export const DaiDowngrade: React.FC<Props> = ({
       <>
         <DowngradeForm
           value={dai}
-          onAmount={handleAmount}
+          onChange={handleChange}
           onClick={handleClick}
           error={error}
-          balance={balance}
         />
-        <BalanceText text={`Your DAIx Balance: ${trimPad(balance, 6)}`} />
+        <BalanceText text={`Your DAIx Balance: ${balance}`} />
       </>
     </Card>
   );

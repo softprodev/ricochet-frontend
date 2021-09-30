@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, ChangeEvent } from 'react';
 import { Card } from 'components/layout/Card';
 import { UpgradeForm } from 'components/main/UpgradeForm';
 import { useDispatch } from 'react-redux';
 import { wbtcApprove, wbtcUpgrade } from 'store/main/actionCreators';
 import { BalanceText } from 'components/common/BalanceText';
 import { useToasts } from 'hooks/useToast';
-import { trimPad } from 'utils/balances';
 
 type Props = {
   balance?: string;
@@ -30,11 +29,11 @@ export const WbtcUpgrade: React.FC<Props> = ({
     }
   }, [setWbtc]);
 
-  const handleAmount = (amount: string) => {
-    if (error) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (error) { 
       setError('');
     }
-    setWbtc(amount);
+    setWbtc(e.target.value);
   };
 
   const handleonApprove = useCallback(() => {
@@ -59,15 +58,14 @@ export const WbtcUpgrade: React.FC<Props> = ({
       <>
         <UpgradeForm
           value={wbtc}
-          onAmount={handleAmount}
+          onChange={handleChange}
           onApprove={handleonApprove}
           onUpgrade={handleonUpgrade}
           disabledApprove={hasWbtcApprove}
           disabledUpgrade={!hasWbtcApprove}
           error={error}
-          balance={balance}
         />
-        <BalanceText text={`Your WBTC Balance: ${trimPad(balance, 6)}`} />
+        <BalanceText text={`Your WBTC Balance: ${balance}`} />
       </>
     </Card>
   );

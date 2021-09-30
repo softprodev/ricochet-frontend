@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { Button } from 'components/common/Button';
 import { Input } from 'components/common/Input';
-import { trimPad } from 'utils/balances';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -27,7 +26,7 @@ export const FlowForm: React.FC<Props> = ({
 }) => (
   <>
     <div className={styles.balance}>
-      {`Your Balance: ${trimPad(balance, 6)} ${token}`}
+      {`Your Balance: ${balance} ${token}`}
     </div>
     <div className={styles.error}>{error}</div>
     <div className={styles.form}>

@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, 
+  useState, useCallback, ChangeEvent, 
 } from 'react';
 import { Card } from 'components/layout/Card';
 import { UpgradeForm } from 'components/main/UpgradeForm';
@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { wethApprove, wethUpgrade } from 'store/main/actionCreators';
 import { BalanceText } from 'components/common/BalanceText';
 import { useToasts } from 'hooks/useToast';
-import { trimPad } from 'utils/balances';
 
 type Props = {
   balance?: string;
@@ -32,11 +31,11 @@ export const WethUpgrade: React.FC<Props> = ({
     }
   }, [setWeth]);
 
-  const handleAmount = (amount: string) => {
-    if (error) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (error) { 
       setError('');
     }
-    setWeth(amount);
+    setWeth(e.target.value);
   };
 
   const handleonApprove = useCallback(() => { 
@@ -61,15 +60,14 @@ export const WethUpgrade: React.FC<Props> = ({
       <>
         <UpgradeForm 
           value={weth}
-          onAmount={handleAmount}
+          onChange={handleChange}
           onApprove={handleonApprove}
           onUpgrade={handleonUpgrade}
           disabledApprove={hasWethApprove}
           disabledUpgrade={!hasWethApprove}
           error={error}
-          balance={balance}
         />
-        <BalanceText text={`Your ETH Balance: ${trimPad(balance, 6)}`} />
+        <BalanceText text={`Your ETH Balance: ${balance}`} />
       </>
     </Card>
   ); 

@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, ChangeEvent, useCallback } from 'react';
 import { Card } from 'components/layout/Card';
 import { DowngradeForm } from 'components/main/DowngradeForm';
 import { useDispatch } from 'react-redux';
 import { wethDownGrade } from 'store/main/actionCreators';
 import { BalanceText } from 'components/common/BalanceText';
 import { useToasts } from 'hooks/useToast';
-import { trimPad } from 'utils/balances';
 
 type Props = {
   balance?: string;
@@ -25,11 +24,11 @@ export const WethDowngrade: React.FC<Props> = ({ balance = '', isLoading }) => {
     }
   }, [setWeth]);
 
-  const handleAmount = (amount: string) => {
-    if (error) {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (error) { 
       setError('');
     }
-    setWeth(amount);
+    setWeth(e.target.value);
   };
 
   const handleClick = useCallback(() => { 
@@ -47,12 +46,11 @@ export const WethDowngrade: React.FC<Props> = ({ balance = '', isLoading }) => {
       <>
         <DowngradeForm 
           value={weth} 
-          onAmount={handleAmount}
+          onChange={handleChange} 
           onClick={handleClick}
           error={error}
-          balance={balance}
         />
-        <BalanceText text={`Your WETHx Balance: ${trimPad(balance, 6)}`} />
+        <BalanceText text={`Your WETHx Balance: ${balance}`} />
       </>
     </Card>
   );
