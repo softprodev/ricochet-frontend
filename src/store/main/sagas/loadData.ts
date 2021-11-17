@@ -8,8 +8,6 @@ import {
   checkIfApproveWbtc,
   checkIfApproveMkr,
   checkIfApproveDai,
-  checkIfApproveSushi,
-  checkIfApproveWMatic,
 } from './checkIfApprove';
 import { getBalances } from './getBalances';
 import { sweepQueryFlow } from './sweepQueryFlow';
@@ -25,8 +23,6 @@ export function* loadData() {
       call(checkIfApproveDai),
       call(checkIfApproveWeth),
       call(checkIfApproveWbtc),
-      call(checkIfApproveSushi),
-      call(checkIfApproveWMatic),
       call(sweepQueryFlow),
     ]);
     yield put(mainSetState({

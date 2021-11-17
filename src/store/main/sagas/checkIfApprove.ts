@@ -30,7 +30,7 @@ export function* checkIfApprove(
   const amount: Unwrap<typeof allowance> = yield call(allowance,
     contract, address, superTokenAddress);
   const balances: ReturnType<typeof selectBalances> = yield select(selectBalances);
-  const hasApprove = Number(amount) > Number(balances && balances[tokenAddress]);
+  const hasApprove = Number(amount) > Number(balances && balances[superTokenAddress]);
   yield put(mainSetState({ [param]: hasApprove }));
 }
 
